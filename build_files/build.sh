@@ -1,18 +1,13 @@
-#!/usr/bin/bash
-
-echo "::group:: ===$(basename "$0")==="
+#!/bin/bash
 
 set -ouex pipefail
 
-# Load secure COPR helpers
-# shellcheck source=build_files/shared/copr-helpers.sh
-source /ctx/build_files/shared/copr-helpers.sh
+### Install packages
 
-# NOTE:
-# Packages are split into FEDORA_PACKAGES and COPR_PACKAGES to prevent
-# malicious COPRs from injecting fake versions of Fedora packages.
-# Fedora packages are installed first in bulk (safe).
-# COPR packages are installed individually with isolated enablement.
+# Packages can be installed from any enabled yum repo on the image.
+# RPMfusion repos are available by default in ublue main images
+# List of rpmfusion packages can be found here:
+# https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/43/x86_64/repoview/index.html&protocol=https&redirect=1
 
 # DX packages from Fedora repos - common to all versions
 FEDORA_PACKAGES=(
@@ -74,14 +69,6 @@ CUSTOM_PACKAGES=(
 dnf5 install -y --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
 dnf5 -y install "${CUSTOM_PACKAGES[@]}"
 
-# rocm doesn't work well on nvidia
-if [[ ! "${IMAGE_NAME}" =~ nvidia ]]; then
-  dnf install -y \
-    rocm-hip \
-    rocm-opencl \
-    rocm-smi
-fi
-
 # Docker packages from their repo
 dnf config-manager addrepo --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo
 sed -i "s/enabled=.*/enabled=0/g" /etc/yum.repos.d/docker-ce.repo
@@ -93,62 +80,17 @@ dnf -y install --enablerepo=docker-ce-stable \
     docker-compose-plugin \
     docker-model-plugin
 
-# VSCode package from Microsoft repo
-echo "Installing VSCode from official repo..."
-tee /etc/yum.repos.d/vscode.repo <<'EOF'
-[code]
-name=Visual Studio Code
-baseurl=https://packages.microsoft.com/yumrepos/vscode
-enabled=1
-gpgcheck=1
-gpgkey=https://packages.microsoft.com/keys/microsoft.asc
-EOF
-sed -i "s/enabled=.*/enabled=0/g" /etc/yum.repos.d/vscode.repo
-dnf -y install --enablerepo=code \
-    code
+# Use a COPR Example:
+#
+# dnf5 -y copr enable ublue-os/staging
+# dnf5 -y install package
+# Disable COPRs so they don't end up enabled on the final image:
+# dnf5 -y copr disable ublue-os/staging
 
-# DX Copr packages using isolated enablement (secure)
-echo "Installing DX COPR packages with isolated repo enablement..."
+#### Example for enabling a System Unit File
 
-copr_install_isolated "karmab/kcli" "kcli"
-copr_install_isolated "gmaglione/podman-bootc" "podman-bootc"
-copr_install_isolated "ublue-os/packages" "ublue-os-libvirt-workarounds"
-
-# DX packages to exclude - common to all versions
-EXCLUDED_PACKAGES=()
-
-# Version-specific package exclusions for DX
-case "$FEDORA_MAJOR_VERSION" in
-    43)
-        EXCLUDED_PACKAGES+=()
-        ;;
-esac
-
-# Remove excluded packages if they are installed
-if [[ "${#EXCLUDED_PACKAGES[@]}" -gt 0 ]]; then
-    readarray -t INSTALLED_EXCLUDED < <(rpm -qa --queryformat='%{NAME}\n' "${EXCLUDED_PACKAGES[@]}" 2>/dev/null || true)
-    if [[ "${#INSTALLED_EXCLUDED[@]}" -gt 0 ]]; then
-        dnf5 -y remove "${INSTALLED_EXCLUDED[@]}"
-    else
-        echo "No excluded packages found to remove."
-    fi
-fi
-
-# Enable DX services
-if rpm -q docker-ce >/dev/null; then
-    systemctl enable docker.socket
-fi
 systemctl enable podman.socket
 systemctl enable swtpm-workaround.service
 systemctl enable ublue-os-libvirt-workarounds.service
 systemctl enable aurora-dx-groups.service
 systemctl enable --global aurora-dx-user-vscode.service
-
-# Disable RPM Fusion repos
-for i in /etc/yum.repos.d/rpmfusion-*.repo; do
-    if [[ -f "$i" ]]; then
-        sed -i 's@enabled=1@enabled=0@g' "$i"
-    fi
-done
-
-echo "::endgroup::"
