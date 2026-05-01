@@ -29,4 +29,4 @@ dnf5 -y copr disable avengemedia/dms
 
 #### Example for enabling a System Unit File
 
-systemctl --user add-wants niri.service dms
+
