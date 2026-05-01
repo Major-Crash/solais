@@ -12,12 +12,13 @@ set -ouex pipefail
 CUSTOM_PACKAGES=(
     onedrive
     niri
-    noctalia-shell
     waydroid
+    dms
 )
 
-dnf5 install -y --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
+dnf5 -y copr enable avengemedia/dms
 dnf5 -y install "${CUSTOM_PACKAGES[@]}"
+dnf5 -y copr disable avengemedia/dms
 
 # Use a COPR Example:
 #
@@ -28,3 +29,4 @@ dnf5 -y install "${CUSTOM_PACKAGES[@]}"
 
 #### Example for enabling a System Unit File
 
+systemctl --user add-wants niri.service dms
