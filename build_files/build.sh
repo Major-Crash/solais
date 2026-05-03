@@ -11,8 +11,8 @@ set -ouex pipefail
 
 CUSTOM_PACKAGES=(
     onedrive
-    niri
     waydroid
+    niri
     dms
 )
 
