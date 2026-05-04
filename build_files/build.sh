@@ -16,7 +16,7 @@ CUSTOM_PACKAGES=(
     noctalia-shell
 )
 
-sudo dnf install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
+dnf5 -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
 dnf5 -y install "${CUSTOM_PACKAGES[@]}"
 
 # Use a COPR Example:
