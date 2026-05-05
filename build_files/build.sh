@@ -20,7 +20,7 @@ dnf5 -y copr enable avengemedia/dms
 dnf5 -y copr enable yalter/niri fedora-44-x86_64
 dnf5 -y install "${CUSTOM_PACKAGES[@]}"
 dnf5 -y copr disable avengemedia/dms
-dnf5 -y copr disable yalter/niri fedora-44-x86_64
+dnf5 -y copr disable yalter/niri
 
 # Use a COPR Example:
 #
