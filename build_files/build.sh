@@ -13,11 +13,11 @@ CUSTOM_PACKAGES=(
     onedrive
     waydroid
     niri
-    noctalia-shell
 )
 
-dnf5 -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
+dnf5 -y copr enable avengemedia/dms
 dnf5 -y install "${CUSTOM_PACKAGES[@]}"
+dnf5 -y copr disable avengemedia/dms
 
 # Use a COPR Example:
 #
