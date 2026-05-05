@@ -13,6 +13,7 @@ CUSTOM_PACKAGES=(
     onedrive
     waydroid
     niri
+    dms
 )
 
 dnf5 -y copr enable avengemedia/dms
