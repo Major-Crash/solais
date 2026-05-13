@@ -14,6 +14,7 @@ CUSTOM_PACKAGES=(
     niri
     dms
     mako
+    firewall-config
 )
 
 dnf5 -y copr enable avengemedia/dms
