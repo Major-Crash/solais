@@ -13,7 +13,6 @@ CUSTOM_PACKAGES=(
     waydroid
     niri
     dms
-    mako
 )
 
 dnf5 -y copr enable avengemedia/dms
