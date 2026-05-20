@@ -13,10 +13,8 @@ CUSTOM_PACKAGES=(
     waydroid
     niri
     dms
-    @kde-desktop-environment
 )
 
-dnf5 -y copr enable @kdesig/kde-beta
 dnf5 -y copr enable avengemedia/dms
 dnf5 -y copr enable yalter/niri fedora-44-x86_64
 dnf5 -y install "${CUSTOM_PACKAGES[@]}"
