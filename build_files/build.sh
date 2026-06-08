@@ -13,6 +13,7 @@ CUSTOM_PACKAGES=(
 #    waydroid
     niri
     dms
+    qt6ct-kde
 )
 
 dnf5 -y copr enable avengemedia/dms
