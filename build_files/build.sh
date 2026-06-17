@@ -13,6 +13,8 @@ CUSTOM_PACKAGES=(
 #    waydroid
     niri
     dms
+    gnome-keyring
+    xdg-desktop-portal-gnome
 #    qt6ct-kde
 )
 
