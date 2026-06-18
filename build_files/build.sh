@@ -16,6 +16,9 @@ CUSTOM_PACKAGES=(
 #    gnome-keyring
 #    xdg-desktop-portal-gnome
 #    qt6ct-kde
+    plasma-oxygen
+    oxygen-icon-theme
+    plasma-union
 )
 
 #dnf5 -y copr enable avengemedia/dms
