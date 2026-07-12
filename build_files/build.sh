@@ -15,6 +15,7 @@ CUSTOM_PACKAGES=(
     plasma-oxygen
     oxygen-icon-theme
     plasma-union
+    dankcalendar-git
 )
 
 dnf5 -y copr enable avengemedia/dms
