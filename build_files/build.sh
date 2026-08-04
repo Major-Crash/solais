@@ -17,6 +17,9 @@ CUSTOM_PACKAGES=(
     plasma-union
     dankcalendar-git
     qt6ct-kde
+    mako
+    swaybg
+    swayidle
 )
 
 dnf5 -y copr enable avengemedia/dms
