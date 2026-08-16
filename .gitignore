@@ -3,6 +3,7 @@ _build_*
 output
 _build-*/**
 *_chunkah_*
+*_rpm-ostree_*
 
 *.old
 .github/workflows/build.yml.old
