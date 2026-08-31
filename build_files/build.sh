@@ -27,13 +27,19 @@ CUSTOM_PACKAGES=(
 
 COPR_REPOS=(
     avengemedia/danklinux
-    'yalter/niri fedora-44-x86_64'
+    yalter/niri fedora-44-x86_64
     avengemedia/dms
 )
 
-dnf5 -y copr enable "${COPR_REPOS[@]}"
+for repo in "${COPR_REPOS[@]}"; do
+    dnf5 -y copr enable "$repo"
+done
+
 dnf5 -y install "${CUSTOM_PACKAGES[@]}"
-dnf5 -y copr disable "${COPR_REPOS[@]}"
+
+for repo in "${COPR_REPOS[@]}"; do
+    dnf5 -y copr disable "$repo"
+done
 
 # Use a COPR Example:
 #
