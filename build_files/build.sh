@@ -27,7 +27,7 @@ CUSTOM_PACKAGES=(
 
 COPR_REPOS=(
     avengemedia/danklinux
-    yalter/niri fedora-44-x86_64
+    "yalter/niri fedora-44-x86_64"
     avengemedia/dms
 )
 
