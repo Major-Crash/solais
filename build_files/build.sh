@@ -25,11 +25,15 @@ CUSTOM_PACKAGES=(
     swayidle
 )
 
-dnf5 -y copr enable avengemedia/dms
-dnf5 -y copr enable yalter/niri fedora-44-x86_64
+COPR_REPOS=(
+    avengemedia/danklinux
+    yalter/niri fedora-44-x86_64
+    avengemedia/dms
+)
+
+dnf5 -y copr enable "${COPR_REPOS[@]}"
 dnf5 -y install "${CUSTOM_PACKAGES[@]}"
-dnf5 -y copr disable avengemedia/dms
-dnf5 -y copr disable yalter/niri
+dnf5 -y copr disable "${COPR_REPOS[@]}"
 
 # Use a COPR Example:
 #
