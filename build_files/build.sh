@@ -35,6 +35,7 @@ for repo in "${COPR_REPOS[@]}"; do
     dnf5 -y copr enable "$repo"
 done
 
+dnf5 -y upgrade qt6-qtbase.x86_64
 dnf5 -y install "${CUSTOM_PACKAGES[@]}"
 
 for repo in "${COPR_REPOS[@]}"; do
