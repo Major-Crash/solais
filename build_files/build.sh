@@ -15,9 +15,9 @@ cp -avf "/ctx/system_files"/. /
 CUSTOM_PACKAGES=(
     niri
     noctalia
-    mako
-    swaybg
-    swayidle
+    # mako
+    # swaybg
+    # swayidle
 )
 
 COPR_REPOS=(
