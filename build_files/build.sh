@@ -15,9 +15,6 @@ cp -avf "/ctx/system_files"/. /
 CUSTOM_PACKAGES=(
     niri
     noctalia
-    plasma-oxygen
-    oxygen-icon-theme
-    plasma-union
     qt6ct-kde
     mako
     swaybg
