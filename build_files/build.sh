@@ -15,7 +15,6 @@ cp -avf "/ctx/system_files"/. /
 CUSTOM_PACKAGES=(
     niri
     noctalia
-    qt6ct-kde
     mako
     swaybg
     swayidle
