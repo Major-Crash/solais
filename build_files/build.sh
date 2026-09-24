@@ -14,11 +14,10 @@ cp -avf "/ctx/system_files"/. /
 
 CUSTOM_PACKAGES=(
     niri
-    dms
+    noctalia
     plasma-oxygen
     oxygen-icon-theme
     plasma-union
-    dankcalendar-git
     qt6ct-kde
     mako
     swaybg
@@ -26,9 +25,7 @@ CUSTOM_PACKAGES=(
 )
 
 COPR_REPOS=(
-    avengemedia/danklinux
     yalter/niri
-    avengemedia/dms
 )
 
 for repo in "${COPR_REPOS[@]}"; do
