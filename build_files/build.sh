@@ -29,6 +29,7 @@ for repo in "${COPR_REPOS[@]}"; do
 done
 
 dnf5 -y install "${CUSTOM_PACKAGES[@]}"
+dnf5 -y remove mako swaybg swayidle
 
 for repo in "${COPR_REPOS[@]}"; do
     dnf5 -y copr disable "$repo"
